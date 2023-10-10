@@ -1,0 +1,9 @@
+.bookWrapper{
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    background-color: #ebebeb;
+    padding: 75px;
+    justify-content: center;
+}

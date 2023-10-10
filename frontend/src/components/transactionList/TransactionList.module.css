@@ -1,0 +1,100 @@
+.transactionListWrpper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+select{
+    border-radius: 10px;
+    font-size: large;
+    height: 35px;
+}
+
+.limitSelector{
+    text-align: right;
+}
+
+.pageSelector{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pageEllipsis{
+    display: flex;
+    font-size: large;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    width: 2em;
+    height: 1em;
+    margin: 5px;
+    border-radius: 10px;
+    transition: all .2s;
+}
+.pageNumber{
+    display: flex;
+    font-size: large;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(214, 214, 214);
+    width: 2em;
+    height: 2em;
+    margin: 5px;
+    border-radius: 10px;
+    transition: all .2s;
+}
+.pageNumber:hover{
+    background-color: rgb(167, 167, 167);
+    cursor: pointer;
+}
+
+.leftArrow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgb(173, 175, 174);
+    width: 2em;
+    height: 2em;
+    transition: all .2s;
+}
+.leftArrow:hover{
+    background-color: rgb(150, 150, 150);
+    cursor: pointer;
+}
+
+.rightArrow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgb(173, 175, 174);
+    width: 2em;
+    height: 2em;
+    transition: all .2s;
+}
+.rightArrow:hover{
+    background-color: rgb(150, 150, 150);
+    cursor: pointer;
+}
+
+
+
+@media only screen and (max-width: 1199px) {
+    /* タブレット (landscape) */
+}
+
+@media only screen and (max-width: 767px) {
+    /* タブレット (portrait) */
+}
+
+@media only screen and (max-width: 520px) {
+    /* スマホ */
+    .pageSelector{
+        flex-wrap: wrap;
+    }
+    .leftArrow, .rightArrow{
+        display: none;
+    }
+}
