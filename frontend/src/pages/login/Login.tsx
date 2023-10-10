@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import styles from "./Login.module.css";
-import { loginCall } from "../../dispatch";
 
 export default function Login() {
   const [email, setEmail] = useState("");
