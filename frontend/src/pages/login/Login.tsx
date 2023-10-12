@@ -1,10 +1,14 @@
 import React, { useContext, useState } from "react";
 import styles from "./Login.module.css";
+import { Link } from "react-router-dom";
+import { loginCall } from "../../Dispatch";
+import { AuthContext } from "../../state/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
 
   const validateEmail = (email: string) => {
     // 簡易的なメールアドレスの正規表現
@@ -12,13 +16,21 @@ export default function Login() {
     return pattern.test(email);
   };
 
+  // ログインボタン押下時の処理
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validateEmail(email)) {
       setErrorMessage("無効なメールアドレスです。");
       return;
     }
+
+    loginCall(
+      {
+        email: email,
+        password: password,
+      },
+      dispatch
+    );
   };
 
   return (
@@ -53,7 +65,9 @@ export default function Login() {
           </div>
           {errorMessage && <p className={styles.error}>{errorMessage}</p>}
           <div className={styles.signup}>
-            <button className={styles.signupButton}>新規登録はこちら</button>
+            <Link to={"/signup"}>
+              <button className={styles.signupButton}>新規登録はこちら</button>
+            </Link>
           </div>
         </form>
       </div>

@@ -12,9 +12,9 @@ PORT = 3000;
 //DB接続
 mongoose.connect(
     process.env.MONGODB_URL
-).then(()=>{
+).then(() => {
     console.log("MongoDB Connected.");
-}).catch((e)=>{
+}).catch((e) => {
     console.log(e);
 });
 

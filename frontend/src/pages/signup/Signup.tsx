@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Signup.module.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -8,12 +10,14 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const nav = useNavigate();
+
   const validateEmail = (email: string) => {
     const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return pattern.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateEmail(email)) {
@@ -24,6 +28,18 @@ export default function Signup() {
     if (password !== confirmPassword) {
       setErrorMessage("パスワードが一致しません。");
       return;
+    }
+
+    try {
+      const user = {
+        name: username,
+        email: email,
+        password: password,
+      };
+      await axios.post("/api/auth/register", user);
+      nav("/login");
+    } catch (error) {
+      console.log(error);
     }
   };
 

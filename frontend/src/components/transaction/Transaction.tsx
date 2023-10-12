@@ -1,34 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Transaction.module.css";
 import { utcToZonedTime, format } from "date-fns-tz";
-import { Users } from "../transactionList/dummydata";
-import axios, { AxiosResponse } from "axios";
-
-type transactionProps = {
-  date: Date;
-  title: string;
-  amount: number;
-  description: string;
-  recordedBy: string;
-  book: string;
-};
+import axios from "axios";
+import { transactionProps, userType } from "../../types";
 
 //anyはDB連携後修正する
-export default function Transaction({ transaction }: { transaction: transactionProps }) {
+export default function Transaction({
+  transaction,
+}: {
+  transaction: transactionProps;
+}) {
   const timeZone = "Asia/Tokyo";
   const zonedDate = utcToZonedTime(transaction.date, timeZone);
   const formattedDate = format(zonedDate, "yyyy/MM/dd", { timeZone });
   const formattedTime = format(zonedDate, "HH:mm", { timeZone });
 
-  type userType = {
-    _id: string;
-    name: string;
-    email: string;
-    permissionLevel: string;
-    createdAt: Date;
-    updatedAt: Date;
-    imagePath: string;
-  };
   const [user, setUser] = useState<userType | null>(null);
 
   useEffect(() => {
