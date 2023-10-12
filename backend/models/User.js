@@ -22,12 +22,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6
     },
-    permissionLevel: {
-        type: String,
-        required: true,
-        enum: ['ReadOnly', 'ReadWrite', 'Admin'],
-        default: 'ReadOnly'
-    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -42,6 +36,7 @@ const userSchema = new mongoose.Schema({
 
 );
 
+// DBに保存するパスワードをハッシュ化
 userSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 8);
@@ -49,11 +44,11 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
+// ハッシュ化されたPWと入力されたPWの検証関数
 userSchema.methods.checkPwd = function(password) {
     return bcrypt.compare(password, this.password);
-}
+};
 
 // モデルの生成
 const User = mongoose.model('User', userSchema);
-
 module.exports = User;

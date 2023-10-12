@@ -7,7 +7,6 @@ export type userType = {
   _id: string;
   name: string;
   email: string;
-  permissionLevel: string;
   createdAt: Date;
   updatedAt: Date;
   imagePath: string;
@@ -27,3 +26,13 @@ export type transactionProps = {
   recordedBy: string;
   book: string;
 };
+
+export type bookType = {
+  title: string;
+  totalAmount: number;
+  usedAmount: number;
+  incomeAmount: number;
+  description: string;
+  adminUser: string[];
+  nomalUser: string[];
+}

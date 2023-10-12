@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 // ユーザの登録
 router.post("/register", async (req, res) => {
