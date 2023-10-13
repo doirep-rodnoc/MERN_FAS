@@ -133,6 +133,7 @@ export default function TransactionList({ bkId }: { bkId: string }) {
         page: page,
         limit: pageLimit,
       },
+      withCredentials: true,
     });
     setTransaction(res.data.data);
     setTotal(res.data.total);

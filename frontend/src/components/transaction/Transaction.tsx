@@ -20,7 +20,10 @@ export default function Transaction({
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get<userType>(
-        `/api/users/${transaction.recordedBy}`
+        `/api/users/${transaction.recordedBy}`,
+        {
+          withCredentials: true,
+        }
       );
       setUser(res.data);
     };

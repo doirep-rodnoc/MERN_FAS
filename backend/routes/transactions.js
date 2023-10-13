@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const Transaction = require("../models/Transaction");
 const Book = require("../models/Book");
+const verifyToken = require("./VerifyToken");
 
 // 収支の登録
-router.post("/register", async (req, res) => {
+router.post("/register", verifyToken, async (req, res) => {
     try {
         const newTransaction = await new Transaction({
             title: req.body.title,
@@ -31,14 +32,14 @@ router.post("/register", async (req, res) => {
 });
 
 // 複数件の収支の取得（ページネーション対応）
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
     const page = parseInt(req.query.page || "1");  // 現在のページ（デフォルトは1ページ目）
     const limit = parseInt(req.query.limit || "10"); // 1ページあたりのアイテム数（デフォルトは10）
 
     const skip = (page - 1) * limit; // スキップするアイテム数を計算
 
     try {
-        const transactions = await Transaction.find({ book: req.query.bookId }).limit(limit).skip(skip).sort({date: -1});
+        const transactions = await Transaction.find({ book: req.query.bookId }).limit(limit).skip(skip).sort({ date: -1 });
         const totalTransactions = await Transaction.countDocuments(); // 総アイテム数を取得
 
         res.status(200).json({
@@ -54,7 +55,7 @@ router.get('/', async (req, res) => {
 });
 
 // 特定の収支の取得
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
     try {
         const transaction = await Transaction.findById(req.params.id);
         if (!transaction) {
@@ -67,7 +68,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // UPDATE: 収支の更新
-router.patch('/transactions/:id', async (req, res) => {
+router.patch('/transactions/:id', verifyToken, async (req, res) => {
     try {
         const transaction = await Transaction.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!transaction) {
@@ -80,7 +81,7 @@ router.patch('/transactions/:id', async (req, res) => {
 });
 
 // DELETE: 収支の削除
-router.delete('/transactions/:id', async (req, res) => {
+router.delete('/transactions/:id', verifyToken, async (req, res) => {
     try {
         const transaction = await Transaction.findByIdAndDelete(req.params.id);
         if (!transaction) {

@@ -5,6 +5,9 @@ const authRoute = require("./routes/auth");
 const transactionsRoute = require("./routes/transactions");
 const bookRoute = require("./routes/books");
 const mongoose = require("mongoose");
+const cookieParser = require('cookie-parser');
+const cors = require("cors");
+
 require("dotenv").config();
 
 PORT = 3000;
@@ -19,7 +22,12 @@ mongoose.connect(
 });
 
 // MiddleWare
-app.use(express.json())
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:5173',
+}));
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/transactions", transactionsRoute);

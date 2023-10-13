@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Signup.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../AuthContext";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -9,8 +10,8 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const nav = useNavigate();
+  const { signup } = useAuthContext();
+  // const nav = useNavigate();
 
   const validateEmail = (email: string) => {
     const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -30,17 +31,23 @@ export default function Signup() {
       return;
     }
 
-    try {
-      const user = {
-        name: username,
-        email: email,
-        password: password,
-      };
-      await axios.post("/api/auth/register", user);
-      nav("/login");
-    } catch (error) {
-      console.log(error);
-    }
+    signup({
+      name: username,
+      email: email,
+      password: password,
+    });
+
+    // try {
+    //   const user = {
+    //     name: username,
+    //     email: email,
+    //     password: password,
+    //   };
+    //   await axios.post("/api/auth/register", user);
+    //   nav("/login");
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
