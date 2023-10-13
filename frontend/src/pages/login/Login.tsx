@@ -1,10 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
-import { loginCall } from "../../Dispatch";
-import { AuthContext } from "../../state/AuthContext";
-import axios from "axios";
-import UseAuth from "../../hooks/UseAuth";
 import { useAuthContext } from "../../AuthContext";
 import Topbar from "../../components/topbar/Topbar";
 

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import styles from "./Signup.module.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
 
 export default function Signup() {
