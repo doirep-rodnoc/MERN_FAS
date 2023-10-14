@@ -29,7 +29,7 @@ router.post("/login", async (req, res) => {
         const isPwdMatch = await user.checkPwd(password);
         if (!isPwdMatch) return res.status(400).send("Invalid Password.");
 
-        const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "10m", });
+        const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: "1h", });
 
         res.cookie("token", token, { httpOnly: true });
         return res.status(200).json(user);
@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
 
 router.delete("/logout", verifyToken, async (req, res) => {
     res.clearCookie("token");
-    res.status(200).json("クッキーを削除")
+    res.status(200).json("クッキーを削除");
 })
 
 router.get("/user", verifyToken, async (req, res) => {

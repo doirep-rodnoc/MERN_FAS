@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
     imagePath:{
         type: String,
         default: ""
+    },
+    books:{
+        type: [String],
+        default: []
     }
 },
 

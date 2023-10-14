@@ -1,9 +1,198 @@
-.bookWrapper{
+.bookWrapper {
     width: 100%;
     min-height: 100vh;
     min-height: 100svh;
     display: flex;
+    flex-direction: column;
     background-color: #ebebeb;
-    padding: 75px;
-    justify-content: center;
+    padding: 70px;
+    align-items: center;
+}
+
+.bookInfo {
+    width: 45em;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #dccba3;
+    margin: 20px;
+    border-radius: 10px 10px 0 0;
+    padding: 15px 0 0 0;
+    box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.bookInfoHead {
+    padding-left: 30px;
+}
+
+.bookTitle {
+    margin: 0;
+    padding: 5px;
+    padding-left: 10px;
+    border-left: 5px solid #767676;
+}
+
+.bookDescription {
+    margin-top: 15px;
+    padding: 0 20px;
+    padding-bottom: 10px;
+}
+
+
+.bookInfoMenu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.bookInfoMenuItems {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: solid 1px grey;
+    flex-wrap: wrap;
+}
+
+.bookInfoMenuItem {
+    text-align: center;
+    padding: 5px 0;
+    width: 25%;
+    background-color: #ffffff;
+    transition: all .2s;
+}
+
+.bookInfoMenuItem:hover {
+    background-color: #ffffff85;
+}
+
+.relatedContentHidden {
+    max-height: 0;
+    overflow: hidden;
+}
+
+.relatedContent {
+    transition: all .5s;
+    overflow: hidden;
+    -webkit-animation: .5s ease-out alternate menu_open;
+    animation: .5s ease-out alternate menu_open;
+}
+
+.summary {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.total,
+.expense,
+.income {
+    flex: 1;
+    text-align: center;
+    font-size: 25px;
+}
+
+.total {
+    font-weight: 600;
+}
+
+.income {
+    color: #daffcc;
+}
+
+.expense {
+    color: #ffd1cc;
+}
+
+@-webkit-keyframes menu_open {
+    from {
+        max-height: 0px;
+    }
+
+    to {
+        max-height: 500px;
+    }
+}
+
+@keyframes menu_open {
+    from {
+        max-height: 0px;
+    }
+
+    to {
+        max-height: 500px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+
+    /* タブレット (portrait) */
+
+    .bookWrapper{
+        padding: 70px 0 170px 0;
+    }
+
+    .summary {
+        flex-direction: column;
+        /* 垂直方向に要素を配置 */
+    }
+
+    .total,
+    .expense,
+    .income {
+        flex: none;
+        /* 均等な幅の制約を解除 */
+        width: 100%;
+        /* 全幅にする */
+        margin-bottom: 5px;
+        /* 余白を追加 */
+    }
+
+    .bookInfo{
+        width: 100%;
+    }
+
+    .bookInfoMenuItem{
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .summary {
+        flex-direction: column;
+        
+    }
+
+    .bookWrapper{
+        padding: 70px 0 150px 0;
+    }
+
+    .bookInfo{
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    .total,
+    .expense,
+    .income {
+        flex: none;
+        /* 均等な幅の制約を解除 */
+        width: 100%;
+        /* 全幅にする */
+        margin-bottom: 5px;
+        /* 余白を追加 */
+        font-size: 18px;
+    }
+
+    .bookInfoMenuItem{
+        width: 50%;
+    }
 }

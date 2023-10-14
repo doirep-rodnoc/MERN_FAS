@@ -4,7 +4,6 @@ import { utcToZonedTime, format } from "date-fns-tz";
 import axios from "axios";
 import { transactionProps, userType } from "../../types";
 
-//anyはDB連携後修正する
 export default function Transaction({
   transaction,
 }: {

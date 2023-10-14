@@ -1,0 +1,47 @@
+.bookSidebar{
+    margin-right: 10px;
+}
+
+.totalAmount{
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarLabel{
+    font-size: 20px;
+}
+.amount{
+    font-size: 25px;
+}
+
+.sidebarList{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.sidebarListItem{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 4px 6px;
+    cursor: pointer;
+    box-shadow: 5px 10px 11px -10px rgba(0, 0, 0, 0.65);
+    border-radius: 10px;
+    background-color: rgb(240, 240, 240);
+}
+.sidebarListItem:hover{
+    box-shadow: none;
+    transform: translateY(2px);
+    transition: all .3s;
+}
+
+.sidebarListItemIcon{
+    font-size: 35px !important;
+    margin-right: 10px;
+}
+
+.sidebarListItemText{
+    font-size: 20px;
+    padding-top: 3px;
+}

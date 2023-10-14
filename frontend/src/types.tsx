@@ -10,6 +10,7 @@ export type userType = {
   createdAt: Date;
   updatedAt: Date;
   imagePath: string;
+  books: string[];
 };
 
 export type statetype = {
@@ -28,6 +29,7 @@ export type transactionProps = {
 };
 
 export type bookType = {
+  _id: string;
   title: string;
   totalAmount: number;
   usedAmount: number;

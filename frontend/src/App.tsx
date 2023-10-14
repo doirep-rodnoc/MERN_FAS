@@ -7,6 +7,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import { useAuthContext } from "./AuthContext";
 import Auth from "./components/Auth";
+import BookRegist from "./pages/bookregist/BookRegist";
 
 function App() {
   const { user } = useAuthContext();
@@ -28,6 +29,14 @@ function App() {
           element={
             <Auth>
               <Book />
+            </Auth>
+          }
+        />
+        <Route
+          path="/regist/book"
+          element={
+            <Auth>
+              <BookRegist />
             </Auth>
           }
         />

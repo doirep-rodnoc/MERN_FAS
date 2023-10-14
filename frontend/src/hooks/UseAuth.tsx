@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { userType } from "../types";
 
 const UseAuth = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<null | undefined | userType>();
   const navigate = useNavigate();
 
   const signup = async (data: {
@@ -30,7 +31,7 @@ const UseAuth = () => {
   };
 
   const logout = () => {
-    setUser(undefined);
+    setUser(null);
     axios.delete("/api/auth/logout", { withCredentials: true });
     navigate("/login");
   };
@@ -40,6 +41,7 @@ const UseAuth = () => {
       const res = await axios.get("/api/auth/user", { withCredentials: true });
       setUser(res.data);
     } catch (error) {
+      setUser(null);
       console.log(error);
     }
   }, []);

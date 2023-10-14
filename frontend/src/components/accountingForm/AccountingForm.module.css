@@ -1,0 +1,61 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    display: flex;
+    justify-content: start;
+}
+
+.formItem {
+    display: flex;
+    justify-content: start;
+    padding: 10px;
+    width: 100%
+}
+
+.formLabel{
+    white-space: nowrap;
+}
+
+.description {
+    width: 25.5em;
+    height: 3em;
+}
+
+.submit {
+    margin-top: 20px;
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: #FFa100;
+    box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.submit:hover {
+    cursor: pointer;
+    background-color: #ffa812;
+}
+
+
+@media only screen and (max-width: 767px) {
+    /* タブレット (portrait) */
+    .formItem{
+        flex-direction: column;
+        padding: 0 10px;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .formItem{
+        flex-direction: column;
+        padding: 0 10px;
+    }
+}
