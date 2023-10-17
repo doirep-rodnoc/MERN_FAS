@@ -1,7 +1,7 @@
 .topbar {
     display: flex;
     width: 100%;
-    position: absolute;
+    position: fixed;
     background-color: #333;
     overflow: hidden;
     justify-content: space-between;

@@ -30,6 +30,7 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           description: description,
           book: book,
           recordedBy: user,
+          isPending: false
         },
         { withCredentials: true }
       );

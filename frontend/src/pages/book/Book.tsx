@@ -67,7 +67,10 @@ export default function Book() {
                     <PostAdd className={styles.bookInfoMenuItemIcon} />
                     <p className={styles.bookInfoMenuItemText}>収支の登録</p>
                   </div>
-                  <div className={styles.bookInfoMenuItem}>
+                  <div
+                    className={styles.bookInfoMenuItem}
+                    onClick={() => handleItemClick(2)}
+                  >
                     <AddTask className={styles.bookInfoMenuItemIcon} />
                     <p className={styles.bookInfoMenuItemText}>
                       収支申請リスト
@@ -87,13 +90,30 @@ export default function Book() {
                   </div>
                 </div>
                 {selectedItem === 1 && (
-                  <div className={selectedItem ? styles.relatedContent : styles.relatedContentHidden}>
-                    <AccountingForm book={id}/>
+                  <div
+                    className={
+                      selectedItem
+                        ? styles.relatedContent
+                        : styles.relatedContentHidden
+                    }
+                  >
+                    <AccountingForm book={id} />
+                  </div>
+                )}
+                {selectedItem === 2 && (
+                  <div
+                    className={
+                      selectedItem
+                        ? styles.relatedContent
+                        : styles.relatedContentHidden
+                    }
+                  >
+                    <TransactionList bkId={id || ""} pending={true}/>
                   </div>
                 )}
               </div>
             </div>
-            <TransactionList bkId={id || ""} />
+            <TransactionList bkId={id || ""} pending={false} />
           </div>
 
           <div className={styles.summary}>
@@ -138,7 +158,7 @@ export default function Book() {
                 </div>
               </div>
             </div>
-            <TransactionList bkId={id || ""} />
+            <TransactionList bkId={id || ""} pending={false} />
           </div>
 
           <div className={styles.summary}>

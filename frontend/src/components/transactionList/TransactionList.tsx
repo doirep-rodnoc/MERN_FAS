@@ -4,7 +4,13 @@ import Transaction from "../transaction/Transaction";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function TransactionList({ bkId }: { bkId: string }) {
+export default function TransactionList({
+  bkId,
+  pending,
+}: {
+  bkId: string;
+  pending: boolean;
+}) {
   type transactionDataType = {
     _id: string;
     date: Date;
@@ -13,6 +19,7 @@ export default function TransactionList({ bkId }: { bkId: string }) {
     description: string;
     recordedBy: string;
     book: string;
+    isPending: boolean;
   };
 
   type transactionType = {
@@ -132,6 +139,7 @@ export default function TransactionList({ bkId }: { bkId: string }) {
         bookId: bkId,
         page: page,
         limit: pageLimit,
+        fetchPending: pending,
       },
       withCredentials: true,
     });
@@ -164,14 +172,9 @@ export default function TransactionList({ bkId }: { bkId: string }) {
         </select>
       </div>
       {Transactions?.map((transaction) => (
-        <Link
-          to={"/transaction/" + transaction._id}
-          key={transaction._id}
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          <Transaction transaction={transaction} key={transaction._id} />
-        </Link>
+        <Transaction transaction={transaction} key={transaction._id} />
       ))}
+      {Transactions?.length === 0 ? <h2 style={{textAlign: "center"}}>{pending ? "承認待ちの" : ""}収支はありません</h2> : null}
       <div className={styles.pageSelector}>
         <div className={styles.leftArrow} onClick={handleLeftArrowClick}>
           &#9664;

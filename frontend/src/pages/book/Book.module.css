@@ -72,6 +72,7 @@
 }
 
 .relatedContent {
+    padding: 10px;
     transition: all .5s;
     overflow: hidden;
     -webkit-animation: .5s ease-out alternate menu_open;

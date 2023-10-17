@@ -20,12 +20,14 @@ export type statetype = {
 };
 
 export type transactionProps = {
+  _id: string;
   date: Date;
   title: string;
   amount: number;
   description: string;
   recordedBy: string;
   book: string;
+  isPending: boolean;
 };
 
 export type bookType = {

@@ -24,6 +24,11 @@ const transactionSchema = new mongoose.Schema({
     book:{
         type: String,
         required: true,
+    },
+    isPending:{
+        type: Boolean,
+        required: true,
+        default: true
     }
 },
     { timestamps: true }

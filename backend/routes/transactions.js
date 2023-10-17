@@ -11,7 +11,8 @@ router.post("/register", verifyToken, async (req, res) => {
             amount: req.body.amount,
             description: req.body.description,
             recordedBy: req.body.recordedBy,
-            book: req.body.book
+            book: req.body.book,
+            isPending: req.body.isPending
         });
         const book = await Book.findById(newTransaction.book);
         if (!book) {
@@ -38,10 +39,16 @@ router.get('/', verifyToken, async (req, res) => {
 
     const skip = (page - 1) * limit; // スキップするアイテム数を計算
 
-    try {
-        const transactions = await Transaction.find({ book: req.query.bookId }).limit(limit).skip(skip).sort({ date: -1 });
-        const totalTransactions = await Transaction.countDocuments(); // 総アイテム数を取得
+    var transactions;
 
+    try {
+        if (req.query.fetchPending === "true") {
+            transactions = await Transaction.find({ book: req.query.bookId, isPending: true }).limit(limit).skip(skip).sort({ date: -1 });
+        } else {
+            transactions = await Transaction.find({ book: req.query.bookId, isPending: false }).limit(limit).skip(skip).sort({ date: -1 });
+        }
+
+        const totalTransactions = await Transaction.countDocuments(); // 総アイテム数を取得
         res.status(200).json({
             total: totalTransactions,
             page,
@@ -68,7 +75,7 @@ router.get('/:id', verifyToken, async (req, res) => {
 });
 
 // UPDATE: 収支の更新
-router.patch('/transactions/:id', verifyToken, async (req, res) => {
+router.patch('/:id', verifyToken, async (req, res) => {
     try {
         const transaction = await Transaction.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!transaction) {
@@ -81,7 +88,7 @@ router.patch('/transactions/:id', verifyToken, async (req, res) => {
 });
 
 // DELETE: 収支の削除
-router.delete('/transactions/:id', verifyToken, async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
     try {
         const transaction = await Transaction.findByIdAndDelete(req.params.id);
         if (!transaction) {

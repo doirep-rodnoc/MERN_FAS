@@ -1,3 +1,7 @@
+.transaction{
+    display: flex;
+}
+
 .transactionWrapper{
     display: flex;
     justify-content: start;
@@ -77,6 +81,19 @@
     font-weight: 600;
 }
 
+.pendingControlButtons{
+    display: flex;
+    flex-direction: column;
+}
+
+.pendingControlButton{
+    width: 3em;
+    font-size: 15px;
+    font-weight: 550;
+    margin: 5px;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 1199px) {
     /* タブレット (landscape) */
 }
@@ -85,6 +102,11 @@
     /* タブレット (portrait) */
     .description{
         flex-direction: column;
+    }
+
+    .transactionWrapper{
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -118,6 +140,11 @@
     }
     .amount{
         margin: 0;
+    }
+
+    .pendingControlButtons{
+        display: flex;
+        flex-direction: row;
     }
 }
 
