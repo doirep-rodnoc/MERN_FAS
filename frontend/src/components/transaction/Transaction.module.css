@@ -1,24 +1,30 @@
-.transaction{
+.transaction {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(188, 165, 126);
+    border-radius: 5px;
+    margin: 2px;
 }
 
-.transactionWrapper{
+.transactionWrapper {
     display: flex;
     justify-content: start;
     align-items: center;
     padding: 5px;
-    margin: 2px;
     background-color: aliceblue;
     border: solid 1px black;
     border-radius: 5px;
     width: 100%;
     transition: all .2s;
 }
-.transactionWrapper:hover{
+
+.transactionWrapper:hover {
     transform: scale(1.01);
 }
 
-.datetime{
+.datetime {
     display: flex;
     border-radius: 5px;
     flex-direction: column;
@@ -28,25 +34,28 @@
     width: 8em;
     white-space: nowrap;
 }
-.date{
-    color: white;
-}
-.time{
+
+.date {
     color: white;
 }
 
-.description{
+.time {
+    color: white;
+}
+
+.description {
     display: flex;
     align-items: center;
     flex-direction: row;
 }
 
-.user{
+.user {
     display: flex;
     align-items: center;
     margin-left: 20px;
 }
-.userText{
+
+.userText {
     width: 10em;
     font-weight: 600;
     white-space: nowrap;
@@ -56,14 +65,15 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.userImg{
+
+.userImg {
     width: 35px;
     height: 35px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-.title{  
+.title {
     font-weight: 600;
     margin-left: 10px;
     padding-left: 5px;
@@ -74,24 +84,38 @@
     border-left: 3px solid #4b4b4b;
 }
 
-.amount{
+.amount {
     white-space: nowrap;
     margin: 10px;
     padding-left: 5px;
     font-weight: 600;
 }
 
-.pendingControlButtons{
+.pendingControlButtons {
     display: flex;
-    flex-direction: column;
+
 }
 
-.pendingControlButton{
-    width: 3em;
+.pendingControlButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 5em;
     font-size: 15px;
     font-weight: 550;
+    padding: 5px;
+    border-radius: 10px;
     margin: 5px;
     cursor: pointer;
+}
+
+.pendingControlButtonIconAccept {
+    color: rgb(38, 138, 45);
+}
+
+.pendingControlButtonIconDeny {
+    color: rgb(138, 38, 38);
 }
 
 @media only screen and (max-width: 1199px) {
@@ -99,52 +123,60 @@
 }
 
 @media only screen and (max-width: 767px) {
+
     /* タブレット (portrait) */
-    .description{
+    .description {
         flex-direction: column;
     }
 
-    .transactionWrapper{
+    .transactionWrapper {
         align-items: center;
         justify-content: center;
     }
 }
 
 @media only screen and (max-width: 520px) {
+
     /* スマホ */
-    .transactionWrapper{
+    .transactionWrapper {
         flex-direction: column;
         align-items: start;
     }
-    .datetime{
+
+    .datetime {
         flex-direction: row;
         width: auto;
     }
-    .time{
+
+    .time {
         margin-left: 10px;
     }
-    .description{
+
+    .description {
         flex-direction: column;
         justify-content: start;
         align-items: start;
     }
-    .user{
+
+    .user {
         margin-left: 10px;
     }
-    .userImg{
+
+    .userImg {
         width: 1em;
         height: 1em;
     }
-    .title{
+
+    .title {
         width: 10em;
     }
-    .amount{
+
+    .amount {
         margin: 0;
     }
 
-    .pendingControlButtons{
+    .pendingControlButtons {
         display: flex;
         flex-direction: row;
     }
 }
-

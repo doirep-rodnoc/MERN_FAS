@@ -1,7 +1,8 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import styles from "./TransactionList.module.css";
 import Transaction from "../transaction/Transaction";
 import axios from "axios";
+import useSWR from "swr";
 
 export default function TransactionList({
   bkId,
@@ -28,41 +29,42 @@ export default function TransactionList({
     data: transactionDataType[];
   };
 
-  const [Transactions, setTransaction] = useState<transactionDataType[] | null>(
-    null
-  );
-  const [total, setTotal] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(10);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setPageLimit(Number(event.target.value));
-    fetchTransaction(page, Number(event.target.value));
+    mutate();
   };
 
   const handlePageChange = (event: React.MouseEvent<HTMLDivElement>) => {
-    fetchTransaction(
-      Number((event.target as HTMLElement).firstChild?.nodeValue),
-      pageLimit
-    );
     setPage(Number((event.target as HTMLElement).firstChild?.nodeValue));
+    mutate();
   };
 
   const handleLeftArrowClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (page !== 1) {
-      fetchTransaction(page - 1, pageLimit);
       setPage(page - 1);
+      mutate();
     }
   };
 
   const handleRightArrowClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    var total = 0;
+    if (data?.total !== undefined) {
+      total = data.total;
+    }
     if (page != Math.floor(total / pageLimit) + 1) {
-      fetchTransaction(page + 1, pageLimit);
       setPage(page + 1);
+      mutate();
     }
   };
 
   const generatePageSelector: () => React.ReactElement<HTMLDivElement> = () => {
+    var total = 0;
+    if (data?.total !== undefined) {
+      total = data.total;
+    }
     const totalPages = Math.floor(total / pageLimit) + 1;
     const visiblePages: number[] = [];
 
@@ -132,24 +134,21 @@ export default function TransactionList({
     );
   };
 
-  const fetchTransaction = async (page?: number, pageLimit?: number) => {
-    const res = await axios.get<transactionType>(`/api/transactions`, {
+  const fetchTransaction = async (url: string) => {
+    const res = await axios.get<transactionType>(url, {
       params: {
         bookId: bkId,
-        page: page,
-        limit: pageLimit,
-        fetchPending: pending,
       },
       withCredentials: true,
     });
-    setTransaction(res.data.data);
-    setTotal(res.data.total);
     generatePageSelector();
+    return res.data;
   };
 
-  useEffect(() => {
-    fetchTransaction();
-  }, []);
+  const { data, mutate } = useSWR(
+    `/api/transactions?page=${page}&limit=${pageLimit}&fetchPending=${pending}`,
+    fetchTransaction
+  );
 
   return (
     <div className={styles.transactionListWrapper}>
@@ -170,10 +169,14 @@ export default function TransactionList({
           </option>
         </select>
       </div>
-      {Transactions?.map((transaction) => (
+      {data?.data.map((transaction) => (
         <Transaction transaction={transaction} key={transaction._id} />
       ))}
-      {Transactions?.length === 0 ? <h2 style={{textAlign: "center"}}>{pending ? "承認待ちの" : ""}収支はありません</h2> : null}
+      {data?.data.length === 0 ? (
+        <h2 style={{ textAlign: "center" }}>
+          {pending ? "承認待ちの" : ""}収支はありません
+        </h2>
+      ) : null}
       <div className={styles.pageSelector}>
         <div className={styles.leftArrow} onClick={handleLeftArrowClick}>
           &#9664;

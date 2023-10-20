@@ -4,6 +4,12 @@ import { utcToZonedTime, format } from "date-fns-tz";
 import axios from "axios";
 import { transactionProps, userType } from "../../types";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  CheckCircle,
+  CheckCircleOutline,
+  DoNotDisturb,
+} from "@mui/icons-material";
+import useSWR from "swr";
 
 export default function Transaction({
   transaction,
@@ -16,20 +22,14 @@ export default function Transaction({
   const formattedTime = format(zonedDate, "HH:mm", { timeZone });
   const nav = useNavigate();
 
-  const [user, setUser] = useState<userType | null>(null);
+  const fetchUser = async (url: string) => {
+    const res = await axios.get<userType>(url, {
+      withCredentials: true,
+    });
+    return res.data;
+  };
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get<userType>(
-        `/api/users/${transaction.recordedBy}`,
-        {
-          withCredentials: true,
-        }
-      );
-      setUser(res.data);
-    };
-    fetchUser();
-  }, []);
+  const { data } = useSWR(`/api/users/${transaction.recordedBy}`, fetchUser);
 
   const handleAccept = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const res = await axios.patch(
@@ -82,11 +82,11 @@ export default function Transaction({
         <div className={styles.description}>
           <div className={styles.user}>
             <img
-              src={user?.imagePath || "/assets/noimage.png"}
+              src={data?.imagePath || "/assets/noimage.png"}
               alt=""
               className={styles.userImg}
             />
-            <div className={styles.userText}>{user?.name || "Loading..."}</div>
+            <div className={styles.userText}>{data?.name || "Loading..."}</div>
           </div>
           <div className={styles.title}>
             {transaction.title || "名称未設定"}
@@ -103,14 +103,20 @@ export default function Transaction({
               type="submit"
               className={styles.pendingControlButton}
               onClick={handleAccept}
+              style={{ backgroundColor: "#DFF2D8" }}
             >
+              <CheckCircleOutline
+                className={styles.pendingControlButtonIconAccept}
+              />
               承認
             </button>
             <button
               type="submit"
               className={styles.pendingControlButton}
               onClick={handleReject}
+              style={{ backgroundColor: "#FDECEA" }}
             >
+              <DoNotDisturb className={styles.pendingControlButtonIconDeny} />
               却下
             </button>
           </div>

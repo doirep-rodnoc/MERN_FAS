@@ -1,10 +1,30 @@
 .myBooksWrapper{
-    display: flex;
-    flex-direction: column;
-    background-color: #ebebeb;
     width: 100%;
     min-height: 100vh;
     min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    background-color: #ebebeb;
     padding: 70px;
     align-items: center;
+}
+
+@media only screen and (max-width: 1199px) {
+    /* タブレット (landscape) */
+}
+
+@media only screen and (max-width: 767px) {
+    /* タブレット (portrait) */
+
+    .myBooksWrapper{
+        padding: 70px 0 170px 0;
+    }
+    
+}
+
+@media only screen and (max-width: 520px) {
+    /* スマホ */
+    .myBooksWrapper{
+        padding: 70px 0 170px 0;
+    }
 }
