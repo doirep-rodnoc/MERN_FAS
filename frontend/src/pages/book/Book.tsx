@@ -50,6 +50,7 @@ export default function Book() {
   if (user !== undefined && user !== null) {
     if (adminUsers.includes(user._id)) {
       return (
+        // 管理者ユーザログイン時の表示
         <>
           <Topbar />
           <div className={styles.bookWrapper}>
@@ -81,7 +82,7 @@ export default function Book() {
                       className={styles.bookInfoMenuItemIcon}
                     />
                     <p className={styles.bookInfoMenuItemText}>
-                      管理者申請リスト
+                      ユーザー管理
                     </p>
                   </div>
                   <div className={styles.bookInfoMenuItem}>
@@ -131,6 +132,7 @@ export default function Book() {
       );
     } else if (nomalUsers.includes(user._id)) {
       return (
+        // 一般ユーザログイン時の表示
         <>
           <Topbar />
           <div className={styles.bookWrapper}>
@@ -140,22 +142,58 @@ export default function Book() {
                 <p className={styles.bookDescription}>{bookDescription}</p>
               </div>
               <div className={styles.bookInfoMenu}>
-                <div className={styles.bookInfoMenuItem}>
-                  <PostAdd className={styles.bookInfoMenuItemIcon} />
-                  <p className={styles.bookInfoMenuItemText}>収支の申請</p>
+                <div className={styles.bookInfoMenuItems}>
+                  <div
+                    className={styles.bookInfoMenuItem}
+                    onClick={() => handleItemClick(1)}
+                  >
+                    <PostAdd className={styles.bookInfoMenuItemIcon} />
+                    <p className={styles.bookInfoMenuItemText}>収支の申請</p>
+                  </div>
+                  <div
+                    className={styles.bookInfoMenuItem}
+                    onClick={() => handleItemClick(2)}
+                  >
+                    <AddTask className={styles.bookInfoMenuItemIcon} />
+                    <p className={styles.bookInfoMenuItemText}>
+                      収支申請リスト
+                    </p>
+                  </div>
+                  <div className={styles.bookInfoMenuItem}>
+                    <AdminPanelSettings
+                      className={styles.bookInfoMenuItemIcon}
+                    />
+                    <p className={styles.bookInfoMenuItemText}>
+                      ユーザー管理
+                    </p>
+                  </div>
+                  <div className={styles.bookInfoMenuItem}>
+                    <Settings className={styles.bookInfoMenuItemIcon} />
+                    <p className={styles.bookInfoMenuItemText}>その他の設定</p>
+                  </div>
                 </div>
-                <div className={styles.bookInfoMenuItem}>
-                  <AddTask className={styles.bookInfoMenuItemIcon} />
-                  <p className={styles.bookInfoMenuItemText}>申請中リスト</p>
-                </div>
-                <div className={styles.bookInfoMenuItem}>
-                  <AddCircle className={styles.bookInfoMenuItemIcon} />
-                  <p className={styles.bookInfoMenuItemText}>何らかの機能</p>
-                </div>
-                <div className={styles.bookInfoMenuItem}>
-                  <AdminPanelSettings className={styles.bookInfoMenuItemIcon} />
-                  <p className={styles.bookInfoMenuItemText}>管理者申請</p>
-                </div>
+                {selectedItem === 1 && (
+                  <div
+                    className={
+                      selectedItem
+                        ? styles.relatedContent
+                        : styles.relatedContentHidden
+                    }
+                  >
+                    <AccountingForm book={id} />
+                  </div>
+                )}
+                {selectedItem === 2 && (
+                  <div
+                    className={
+                      selectedItem
+                        ? styles.relatedContent
+                        : styles.relatedContentHidden
+                    }
+                  >
+                    <TransactionList bkId={id || ""} pending={true}/>
+                  </div>
+                )}
               </div>
             </div>
             <TransactionList bkId={id || ""} pending={false} />
@@ -176,6 +214,7 @@ export default function Book() {
       );
     } else {
       return (
+        // 未登録ユーザ時の表示
         <>
           <Topbar />
         </>
