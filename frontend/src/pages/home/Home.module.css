@@ -1,7 +1,59 @@
 .homeWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     min-height: 100vh;
     min-height: 100svh;
     display: flex;
     background-color: #ebebeb;
+}
+
+.homeMenu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: solid 3px rgb(119, 119, 119);
+    border-radius: 10px;
+    margin: 10px;
+    width: 17em;
+    background-color: #e7e7e7;
+    transition: all .2s;
+    box-shadow: 0px 1px 14px 0px rgba(107, 107, 107, 0.6);
+}
+.menuItem:hover{
+    box-shadow: 0px 1px 0px 0px rgba(107, 107, 107, 0.6);
+    transform: scale(0.99);
+    cursor: pointer;
+}
+
+.menuIcon{
+    font-size: 13em !important; 
+    color: rgb(66, 66, 66);
+}
+
+.menuTitle{
+    color: rgb(60, 63, 63);
+    font-size: 20px;
+    font-weight: 550;
+}
+
+@media only screen and (max-width: 767px) {
+    /* タブレット (portrait) */
+    .homeMenu{
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .homeMenu{
+        flex-direction: column;
+    }
 }

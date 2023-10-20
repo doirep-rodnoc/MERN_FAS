@@ -3,7 +3,6 @@ import styles from "./Transaction.module.css";
 import { utcToZonedTime, format } from "date-fns-tz";
 import axios from "axios";
 import { transactionProps, userType } from "../../types";
-import { isPending } from "@reduxjs/toolkit";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Transaction({

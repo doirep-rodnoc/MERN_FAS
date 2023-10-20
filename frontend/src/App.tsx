@@ -25,6 +25,14 @@ function App() {
           element={user ? <Navigate to={"/"} /> : <Login />}
         />
         <Route
+          path="/books"
+          element={
+            <Auth>
+              <Book />
+            </Auth>
+          }
+        />
+        <Route
           path="/book/:id"
           element={
             <Auth>
