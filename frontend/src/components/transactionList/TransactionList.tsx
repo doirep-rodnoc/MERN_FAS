@@ -2,7 +2,6 @@ import React, { useEffect, useState, ChangeEvent } from "react";
 import styles from "./TransactionList.module.css";
 import Transaction from "../transaction/Transaction";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 export default function TransactionList({
   bkId,

@@ -40,15 +40,17 @@ router.get('/', verifyToken, async (req, res) => {
     const skip = (page - 1) * limit; // スキップするアイテム数を計算
 
     var transactions;
+    var totalTransactions;
 
     try {
         if (req.query.fetchPending === "true") {
             transactions = await Transaction.find({ book: req.query.bookId, isPending: true }).limit(limit).skip(skip).sort({ date: -1 });
+            totalTransactions = await Transaction.find({ book: req.query.bookId, isPending: true }).countDocuments(); // 総アイテム数を取得
         } else {
             transactions = await Transaction.find({ book: req.query.bookId, isPending: false }).limit(limit).skip(skip).sort({ date: -1 });
+            totalTransactions = await Transaction.find({ book: req.query.bookId, isPending: false }).countDocuments(); // 総アイテム数を取得
         }
 
-        const totalTransactions = await Transaction.countDocuments(); // 総アイテム数を取得
         res.status(200).json({
             total: totalTransactions,
             page,

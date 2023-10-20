@@ -32,6 +32,7 @@ export type transactionProps = {
 
 export type bookType = {
   _id: string;
+  date: Date;
   title: string;
   totalAmount: number;
   usedAmount: number;

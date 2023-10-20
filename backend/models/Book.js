@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
 const bookSchema = new mongoose.Schema({
+    date: {
+        type: Date,
+        default: Date.now
+    },
     title: {
         type: String,
         required: true

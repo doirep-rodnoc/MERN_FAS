@@ -26,6 +26,32 @@ router.post("/register", VerifyToken, async (req, res) => {
     }
 });
 
+// 複数件の帳簿の取得（ページネーション対応）
+router.get('/', VerifyToken, async (req, res) => {
+    const page = parseInt(req.query.page || "1");  // 現在のページ（デフォルトは1ページ目）
+    const limit = parseInt(req.query.limit || "10"); // 1ページあたりのアイテム数（デフォルトは10）
+
+    const skip = (page - 1) * limit; // スキップするアイテム数を計算
+
+    var books;
+    const user = await User.find({_id: req.query.userId}).select("-password");
+
+    try {
+        books = await Book.find({ _id: {$in: user[0].books} }).limit(limit).skip(skip).sort({ date: -1 });
+
+        const totalBooks = await Book.find({ _id: {$in: user[0].books} }).countDocuments(); // 総アイテム数を取得
+        res.status(200).json({
+            total: totalBooks,
+            page,
+            limit,
+            data: books
+        });
+        //console.log(books)
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 router.get("/:id", VerifyToken, async (req, res) => {
     try {
         const book = await Book.findById(req.params.id).select("-password");

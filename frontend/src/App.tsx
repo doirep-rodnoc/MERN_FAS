@@ -8,6 +8,7 @@ import Signup from "./pages/signup/Signup";
 import { useAuthContext } from "./AuthContext";
 import Auth from "./components/Auth";
 import BookRegist from "./pages/bookregist/BookRegist";
+import BookList from "./pages/bookList/BookList";
 
 function App() {
   const { user } = useAuthContext();
@@ -28,7 +29,7 @@ function App() {
           path="/books"
           element={
             <Auth>
-              <Book />
+              <BookList />
             </Auth>
           }
         />
