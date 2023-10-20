@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styles from "./BookList.module.css";
-import Topbar from "../../components/topbar/Topbar";
+import Topbar from "../topbar/Topbar";
 import { bookType } from "../../types";
 import axios from "axios";
 import { useAuthContext } from "../../AuthContext";
-import BookItem from "../../components/bookItem/BookItem";
+import BookItem from "../bookItem/BookItem";
 
 export default function BookList() {
   const [books, setBooks] = useState<bookType[] | null>();
@@ -137,58 +137,57 @@ export default function BookList() {
   }, []);
 
   return (
-    <>
-      <Topbar />
-      <div className={styles.bookListWrapper}>
-        <div className={styles.limitSelector}>
-          表示数:
-          <select value={pageLimit} onChange={handleChange}>
-            <option key={10} value={10}>
-              10
-            </option>
-            <option key={20} value={20}>
-              20
-            </option>
-            <option key={50} value={50}>
-              50
-            </option>
-            <option key={100} value={100}>
-              100
-            </option>
-          </select>
-        </div>
-        {books?.map((book) => (
-          <BookItem book={book} key={book._id} />
-        ))}
-        <div className={styles.pageSelector}>
-          <div className={styles.leftArrow} onClick={handleLeftArrowClick}>
-            &#9664;
+      <div className={styles.bookList}>
+        <div className={styles.bookListWrapper}>
+          <div className={styles.limitSelector}>
+            表示数:
+            <select value={pageLimit} onChange={handleChange}>
+              <option key={10} value={10}>
+                10
+              </option>
+              <option key={20} value={20}>
+                20
+              </option>
+              <option key={50} value={50}>
+                50
+              </option>
+              <option key={100} value={100}>
+                100
+              </option>
+            </select>
           </div>
-          <div className={styles.pageSelectorNums}>
-            {generatePageSelector()}
+          {books?.map((book) => (
+            <BookItem book={book} key={book._id} />
+          ))}
+          <div className={styles.pageSelector}>
+            <div className={styles.leftArrow} onClick={handleLeftArrowClick}>
+              &#9664;
+            </div>
+            <div className={styles.pageSelectorNums}>
+              {generatePageSelector()}
+            </div>
+            <div className={styles.rightArrow} onClick={handleRightArrowClick}>
+              &#9654;
+            </div>
           </div>
-          <div className={styles.rightArrow} onClick={handleRightArrowClick}>
-            &#9654;
+          <div className={styles.limitSelector}>
+            表示数:
+            <select value={pageLimit} onChange={handleChange}>
+              <option key={10} value={10}>
+                10
+              </option>
+              <option key={20} value={20}>
+                20
+              </option>
+              <option key={50} value={50}>
+                50
+              </option>
+              <option key={100} value={100}>
+                100
+              </option>
+            </select>
           </div>
-        </div>
-        <div className={styles.limitSelector}>
-          表示数:
-          <select value={pageLimit} onChange={handleChange}>
-            <option key={10} value={10}>
-              10
-            </option>
-            <option key={20} value={20}>
-              20
-            </option>
-            <option key={50} value={50}>
-              50
-            </option>
-            <option key={100} value={100}>
-              100
-            </option>
-          </select>
         </div>
       </div>
-    </>
   );
 }

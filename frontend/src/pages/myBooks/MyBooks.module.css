@@ -1,0 +1,10 @@
+.myBooksWrapper{
+    display: flex;
+    flex-direction: column;
+    background-color: #ebebeb;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 70px;
+    align-items: center;
+}

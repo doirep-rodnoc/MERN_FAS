@@ -16,7 +16,6 @@ export default function BookItem({ book }: { book: bookType }) {
   };
 
   return (
-    <div className={styles.book}>
       <div className={styles.bookWrapper} onClick={handleBookClick}>
         <div className={styles.datetime}>
           <div className={styles.date}>作成日</div>
@@ -26,6 +25,5 @@ export default function BookItem({ book }: { book: bookType }) {
           <div className={styles.title}>{book.title || "名称未設定"}</div>
         </div>
       </div>
-    </div>
   );
 }

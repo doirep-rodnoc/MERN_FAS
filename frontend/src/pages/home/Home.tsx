@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Home.module.css";
 import Topbar from "../../components/topbar/Topbar";
-import { Book, MenuBook, NoteAdd } from "@mui/icons-material";
+import { MenuBook, NoteAdd } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 export default function Home() {
@@ -9,11 +9,12 @@ export default function Home() {
     <div>
       <Topbar />
       <div className={styles.homeWrapper}>
+        <h2>メニュー</h2>
         <div className={styles.homeMenu}>
           <Link to={"/books"} style={{"textDecoration": "none"}}>
             <div className={styles.menuItem}>
               <MenuBook className={styles.menuIcon} />
-              <div className={styles.menuTitle}>帳簿の確認</div>
+              <div className={styles.menuTitle}>帳簿一覧</div>
             </div>
           </Link>
           <Link to={"/regist/book"} style={{"textDecoration": "none"}}>
