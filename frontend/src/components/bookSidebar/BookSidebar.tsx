@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./BookSidebar.module.css";
 import { Add } from "@mui/icons-material";
 

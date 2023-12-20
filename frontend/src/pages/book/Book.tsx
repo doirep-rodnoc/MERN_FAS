@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Book.module.css";
 import Topbar from "../../components/topbar/Topbar";
 import TransactionList from "../../components/transactionList/TransactionList";
 import { useParams } from "react-router-dom";
-import { bookType } from "../../types";
 import axios from "axios";
 import { useAuthContext } from "../../AuthContext";
 import {
-  AddCircle,
   AddTask,
   AdminPanelSettings,
   PostAdd,
@@ -17,7 +15,6 @@ import AccountingForm from "../../components/accountingForm/AccountingForm";
 
 export default function Book() {
   const { id } = useParams<{ id: string }>();
-  const [book, setBook] = useState<bookType[] | null>(null);
   const [bookTitle, setBookTitle] = useState<string>("");
   const [bookDescription, setBookDescription] = useState<string>("");
   const [adminUsers, setAdminUsers] = useState<[string]>([""]);

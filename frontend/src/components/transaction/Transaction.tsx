@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Transaction.module.css";
 import { utcToZonedTime, format } from "date-fns-tz";
 import axios from "axios";
 import { transactionProps, userType } from "../../types";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  CheckCircle,
-  CheckCircleOutline,
-  DoNotDisturb,
-} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { CheckCircleOutline, DoNotDisturb } from "@mui/icons-material";
 import useSWR from "swr";
 
 export default function Transaction({
@@ -31,8 +27,8 @@ export default function Transaction({
 
   const { data } = useSWR(`/api/users/${transaction.recordedBy}`, fetchUser);
 
-  const handleAccept = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const res = await axios.patch(
+  const handleAccept = async () => {
+    await axios.patch(
       `/api/transactions/${transaction._id}`,
       {
         isPending: false,
@@ -41,15 +37,13 @@ export default function Transaction({
     );
   };
 
-  const handleReject = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const res = await axios.delete(`/api/transactions/${transaction._id}`, {
+  const handleReject = async () => {
+    await axios.delete(`/api/transactions/${transaction._id}`, {
       withCredentials: true,
     });
   };
 
-  const handleTransactionClick = async (
-    e: React.MouseEvent<HTMLDivElement>
-  ) => {
+  const handleTransactionClick = async () => {
     nav("/transaction/" + transaction._id);
   };
 
