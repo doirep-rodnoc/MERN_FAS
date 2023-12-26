@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./AccountingForm.module.css";
 import axios from "axios";
-import { transactionProps, userType } from "../../types";
+import { transactionProps } from "../../types";
 import { useAuthContext } from "../../AuthContext";
 
 const AccountingForm = ({ book }: { book: string | undefined }) => {
@@ -12,7 +12,7 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useAuthContext();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async () => {
     //e.preventDefault();
     setIsSubmitting(true);
     var tr_amount;
@@ -50,6 +50,9 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           <label htmlFor="title" className={styles.formLabel}>
             名目(必須):
           </label>
+          <label htmlFor="title" className={styles.formLabel}>
+            名目(必須):
+          </label>
           <input
             id="title"
             type="text"
@@ -60,6 +63,9 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
         </div>
 
         <div className={styles.formItem}>
+          <label htmlFor="title" className={styles.formLabel}>
+            収支(必須):
+          </label>
           <label htmlFor="title" className={styles.formLabel}>
             収支(必須):
           </label>
@@ -80,6 +86,9 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           <label htmlFor="amount" className={styles.formLabel}>
             金額(必須):
           </label>
+          <label htmlFor="amount" className={styles.formLabel}>
+            金額(必須):
+          </label>
           <input
             id="amount"
             type="number"
@@ -90,6 +99,9 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
         </div>
 
         <div className={styles.formItem}>
+          <label htmlFor="description" className={styles.formLabel}>
+            説明(任意):
+          </label>
           <label htmlFor="description" className={styles.formLabel}>
             説明(任意):
           </label>

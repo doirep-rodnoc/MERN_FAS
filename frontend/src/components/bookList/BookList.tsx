@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styles from "./BookList.module.css";
 import { bookType } from "../../types";
 import axios from "axios";
@@ -20,9 +20,6 @@ export default function BookList() {
 
   const fetchBooks = async (url: string) => {
     const res = await axios.get<bookReturnType>(url, {
-      params: {
-        userId: user?._id,
-      },
       withCredentials: true,
     });
     console.log(res);
@@ -30,7 +27,10 @@ export default function BookList() {
     return res.data;
   };
 
-  const { data, error, isLoading, mutate } = useSWR(`/api/books?page=${page}&limit=${pageLimit}`, fetchBooks);
+  const { data, error, mutate } = useSWR(
+    `/api/books?userId=${user?._id}&page=${page}&limit=${pageLimit}`,
+    fetchBooks
+  );
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setPageLimit(Number(event.target.value));
@@ -42,14 +42,14 @@ export default function BookList() {
     mutate();
   };
 
-  const handleLeftArrowClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleLeftArrowClick = () => {
     if (page !== 1) {
       setPage(page - 1);
       mutate();
     }
   };
 
-  const handleRightArrowClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleRightArrowClick = () => {
     var total = 0;
     if (data?.total !== undefined) {
       total = data.total;
@@ -133,6 +133,9 @@ export default function BookList() {
       </div>
     );
   };
+
+  if (error) return <div>Error loading data...</div>;
+  if (!data) return <div>Loading...</div>;
 
   return (
     <div className={styles.bookList}>

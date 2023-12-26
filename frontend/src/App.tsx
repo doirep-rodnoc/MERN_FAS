@@ -28,33 +28,49 @@ function App() {
         <Route
           path="/books"
           element={
-            <Auth>
-              <MyBooks />
-            </Auth>
+            user ? (
+              <Auth>
+                <MyBooks />
+              </Auth>
+            ) : (
+              <Login />
+            )
           }
         />
         <Route
           path="/book/:id"
           element={
-            <Auth>
-              <Book />
-            </Auth>
+            user ? (
+              <Auth>
+                <Book />
+              </Auth>
+            ) : (
+              <Login />
+            )
           }
         />
         <Route
           path="/regist/book"
           element={
-            <Auth>
-              <BookRegist />
-            </Auth>
+            user ? (
+              <Auth>
+                <BookRegist />
+              </Auth>
+            ) : (
+              <Login />
+            )
           }
         />
         <Route
           path="/transaction/:id"
           element={
-            <Auth>
-              <TransactionPage />
-            </Auth>
+            user ? (
+              <Auth>
+                <TransactionPage />
+              </Auth>
+            ) : (
+              <Login />
+            )
           }
         />
       </Routes>

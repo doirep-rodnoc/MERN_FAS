@@ -42,14 +42,14 @@ export default function TransactionList({
     mutate();
   };
 
-  const handleLeftArrowClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleLeftArrowClick = () => {
     if (page !== 1) {
       setPage(page - 1);
       mutate();
     }
   };
 
-  const handleRightArrowClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleRightArrowClick = () => {
     var total = 0;
     if (data?.total !== undefined) {
       total = data.total;
@@ -136,9 +136,6 @@ export default function TransactionList({
 
   const fetchTransaction = async (url: string) => {
     const res = await axios.get<transactionType>(url, {
-      params: {
-        bookId: bkId,
-      },
       withCredentials: true,
     });
     generatePageSelector();
@@ -146,7 +143,7 @@ export default function TransactionList({
   };
 
   const { data, mutate } = useSWR(
-    `/api/transactions?page=${page}&limit=${pageLimit}&fetchPending=${pending}`,
+    `/api/transactions?bookId=${bkId}&page=${page}&limit=${pageLimit}&fetchPending=${pending}`,
     fetchTransaction
   );
 

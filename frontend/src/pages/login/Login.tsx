@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../AuthContext";
-import Topbar from "../../components/topbar/Topbar";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -30,18 +29,10 @@ export default function Login() {
       password: password,
     });
 
-    // loginCall(
-    //   {
-    //     email: email,
-    //     password: password,
-    //   },
-    //   dispatch
-    // );
   };
 
   return (
     <>
-      <Topbar />
       <div className={styles.login}>
         <div className={styles.loginWrapper}>
           <form className={styles.loginForm} onSubmit={handleSubmit}>

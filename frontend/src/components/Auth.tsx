@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { useAuthContext } from "../AuthContext";
-import { Navigate } from "react-router-dom";
 import Login from "../pages/login/Login";
 
 const Auth = ({ children }: { children: JSX.Element | ReactNode}) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Transaction.module.css";
 import { utcToZonedTime, format } from "date-fns-tz";
 import axios from "axios";
@@ -32,8 +32,8 @@ export default function Transaction({
 
   const { data } = useSWR(`/api/users/${transaction.recordedBy}`, fetchUser);
 
-  const handleAccept = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const res = await axios.patch(
+  const handleAccept = async () => {
+    await axios.patch(
       `/api/transactions/${transaction._id}`,
       {
         isPending: false,
@@ -42,15 +42,13 @@ export default function Transaction({
     );
   };
 
-  const handleReject = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const res = await axios.delete(`/api/transactions/${transaction._id}`, {
+  const handleReject = async () => {
+    await axios.delete(`/api/transactions/${transaction._id}`, {
       withCredentials: true,
     });
   };
 
-  const handleTransactionClick = async (
-    e: React.MouseEvent<HTMLDivElement>
-  ) => {
+  const handleTransactionClick = async () => {
     nav("/transaction/" + transaction._id);
   };
 
