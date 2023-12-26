@@ -5,11 +5,11 @@ import axios from "axios";
 import { transactionProps, userType } from "../../types";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  CheckCircle,
   CheckCircleOutline,
   DoNotDisturb,
 } from "@mui/icons-material";
 import useSWR from "swr";
+import { useAuthContext } from "../../AuthContext";
 
 export default function Transaction({
   transaction,
@@ -21,6 +21,7 @@ export default function Transaction({
   const formattedDate = format(zonedDate, "yyyy/MM/dd", { timeZone });
   const formattedTime = format(zonedDate, "HH:mm", { timeZone });
   const nav = useNavigate();
+  const {user} = useAuthContext();
 
   const fetchUser = async (url: string) => {
     const res = await axios.get<userType>(url, {

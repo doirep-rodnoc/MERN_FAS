@@ -3,36 +3,42 @@ const Transaction = require("../models/Transaction");
 const Book = require("../models/Book");
 const verifyToken = require("./VerifyToken");
 
-// 収支の登録
+// 収支情報の登録
 router.post("/register", verifyToken, async (req, res) => {
     try {
+        const book = await Book.findById(req.body.book);
+        console.log(book);
+        if (!book) {
+            return res.status(404).json("Book not found.");
+        }
+        const isAdmin = book.adminUser.includes(req.body.recordedBy._id);
+        console.log(isAdmin);
         const newTransaction = await new Transaction({
             title: req.body.title,
             amount: req.body.amount,
             description: req.body.description,
             recordedBy: req.body.recordedBy,
             book: req.body.book,
-            isPending: req.body.isPending
+            isPending: !isAdmin
         });
-        const book = await Book.findById(newTransaction.book);
-        if (!book) {
-            return res.status(404).json("Book not found.");
-        }
-        book.totalAmount += newTransaction.amount;
-        if (newTransaction.amount < 0) {
-            book.usedAmount -= newTransaction.amount;
-        } else {
-            book.incomeAmount += newTransaction.amount
+        
+        if(isAdmin){
+            book.totalAmount += newTransaction.amount;
+            if (newTransaction.amount < 0) {
+                book.usedAmount -= newTransaction.amount;
+            } else {
+                book.incomeAmount += newTransaction.amount
+            }
         }
         await book.save();
         const transaction = await newTransaction.save();
         return res.status(200).json(transaction);
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json("An error occured:" + error);
     }
 });
 
-// 複数件の収支の取得（ページネーション対応）
+// 複数件の収支情報の取得（ページネーション対応）
 router.get('/', verifyToken, async (req, res) => {
     const page = parseInt(req.query.page || "1");  // 現在のページ（デフォルトは1ページ目）
     const limit = parseInt(req.query.limit || "10"); // 1ページあたりのアイテム数（デフォルトは10）
@@ -63,7 +69,7 @@ router.get('/', verifyToken, async (req, res) => {
     }
 });
 
-// 特定の収支の取得
+// 特定の収支情報の取得
 router.get('/:id', verifyToken, async (req, res) => {
     try {
         const transaction = await Transaction.findById(req.params.id);
@@ -76,20 +82,28 @@ router.get('/:id', verifyToken, async (req, res) => {
     }
 });
 
-// UPDATE: 収支の更新
+// UPDATE: 収支情報の更新(申請承認の処理にのみ使用．透明性確保のため承認後の収支には使わない．)
 router.patch('/:id', verifyToken, async (req, res) => {
     try {
         const transaction = await Transaction.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!transaction) {
             return res.status(404).send();
         }
+        const book = await Book.findById(transaction.book);
+        book.totalAmount += transaction.amount;
+        if (transaction.amount < 0) {
+            book.usedAmount -= transaction.amount;
+        } else {
+            book.incomeAmount += transaction.amount;
+        }
+        book.save();
         res.status(200).json(transaction);
     } catch (error) {
-        res.status(400).send(error);
+        res.status(500).send(error);
     }
 });
 
-// DELETE: 収支の削除
+// DELETE: 収支情報の削除(申請却下の処理にのみ使用．透明性確保のため承認後の収支には使わない．)
 router.delete('/:id', verifyToken, async (req, res) => {
     try {
         const transaction = await Transaction.findByIdAndDelete(req.params.id);

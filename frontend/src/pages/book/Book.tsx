@@ -57,7 +57,7 @@ export default function Book() {
             <div className={styles.bookInfo}>
               <div className={styles.bookInfoHead}>
                 <h1 className={styles.bookTitle}>{bookTitle}</h1>
-                <p className={styles.bookDescription}>{bookDescription}</p>
+                <p className={styles.bookDescription}>{bookDescription}<br/>あなたはこの帳簿の管理者です。</p>
               </div>
               <div className={styles.bookInfoMenu}>
                 <div className={styles.bookInfoMenuItems}>

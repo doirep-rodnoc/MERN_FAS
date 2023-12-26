@@ -9,10 +9,12 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
   const [type, setType] = useState<string>("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useAuthContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     //e.preventDefault();
+    setIsSubmitting(true);
     var tr_amount;
     if (type === "expense") {
       tr_amount = -amount;
@@ -22,6 +24,7 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
 
     if (name && type && amount) {
       console.log({ name, type, amount, description });
+
       const res = await axios.post<transactionProps>(
         "/api/transactions/register",
         {
@@ -29,11 +32,12 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           amount: tr_amount,
           description: description,
           book: book,
-          recordedBy: user,
-          isPending: false
+          recordedBy: user
         },
         { withCredentials: true }
       );
+      setIsSubmitting(false);
+
     } else {
       alert("入力必須項目を全て入力してください。");
     }
@@ -43,7 +47,9 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formItems}>
         <div className={styles.formItem}>
-          <label htmlFor="title" className={styles.formLabel}>名目(必須):</label>
+          <label htmlFor="title" className={styles.formLabel}>
+            名目(必須):
+          </label>
           <input
             id="title"
             type="text"
@@ -54,7 +60,9 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
         </div>
 
         <div className={styles.formItem}>
-          <label htmlFor="title" className={styles.formLabel}>収支(必須):</label>
+          <label htmlFor="title" className={styles.formLabel}>
+            収支(必須):
+          </label>
           <select
             value={type}
             required
@@ -69,7 +77,9 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
         </div>
 
         <div className={styles.formItem}>
-          <label htmlFor="amount" className={styles.formLabel}>金額(必須):</label>
+          <label htmlFor="amount" className={styles.formLabel}>
+            金額(必須):
+          </label>
           <input
             id="amount"
             type="number"
@@ -80,7 +90,9 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
         </div>
 
         <div className={styles.formItem}>
-          <label htmlFor="description" className={styles.formLabel}>説明(任意):</label>
+          <label htmlFor="description" className={styles.formLabel}>
+            説明(任意):
+          </label>
           <textarea
             id="description"
             className={styles.description}
@@ -89,7 +101,7 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           />
         </div>
       </div>
-      <button type="submit" className={styles.submit}>
+      <button type="submit" className={styles.submit} disabled={isSubmitting}>
         登録
       </button>
     </form>

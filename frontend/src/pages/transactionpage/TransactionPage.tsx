@@ -8,7 +8,12 @@ export default function TransactionPage() {
   return (
     <>
       <Topbar />
-      <div className={styles.transactionPageWrapper}>{id}</div>
+      <div className={styles.transactionPageWrapper}>
+        <div className={styles.transactionInfo}>
+          
+        </div>
+        {id}        
+      </div>
     </>
   );
 }

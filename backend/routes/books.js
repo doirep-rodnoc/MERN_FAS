@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Book = require("../models/Book.js");
+const { find } = require("../models/Transaction.js");
 const User = require("../models/User.js");
 const VerifyToken = require("./VerifyToken.js");
 
@@ -59,6 +60,21 @@ router.get("/:id", VerifyToken, async (req, res) => {
     } catch (error) {
         return res.status(500).json("OMG");
     }
-})
+});
+
+
+// router.post("/getuserstatus/:bookid", VerifyToken, async (req, res) => {
+//     try{
+//         const book = await Book.findById(req.params.bookid).select("-password");
+//         console.log(book);
+//         console.log(req.body.userId);
+//         const isAdmin = book.adminUser.includes(req.body.userId._id);
+//         console.log(isAdmin);
+//         return res.status(200).json({isAdmin});
+//     }catch(error){
+//         console.log(error);
+//         return res.status(500).json(error);
+//     }
+// });
 
 module.exports = router;
