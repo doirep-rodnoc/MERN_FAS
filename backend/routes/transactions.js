@@ -69,16 +69,29 @@ router.get('/', verifyToken, async (req, res) => {
     }
 });
 
-// 特定の収支情報の取得
-router.get('/:id', verifyToken, async (req, res) => {
+// // 特定の収支情報の取得
+// router.get('/:id', verifyToken, async (req, res) => {
+//     try {
+//         const transaction = await Transaction.findById(req.params.id);
+//         if (!transaction) {
+//             return res.status(404).send();
+//         }
+//         res.status(200).json(transaction);
+//     } catch (error) {
+//         res.status(500).send(error);
+//     }
+// });
+
+// GET: 特定の収支情報の取得
+router.get("/:id", verifyToken, async (req, res) => {
     try {
-        const transaction = await Transaction.findById(req.params.id);
-        if (!transaction) {
+        const transaction = await Transaction.findById(req.params.id); 
+        if(!transaction){
             return res.status(404).send();
         }
-        res.status(200).json(transaction);
-    } catch (error) {
-        res.status(500).send(error);
+        res.status(500).json(transaction);
+    } catch (e) {
+        res.status(500).send(e);
     }
 });
 
