@@ -50,9 +50,7 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           <label htmlFor="title" className={styles.formLabel}>
             名目(必須):
           </label>
-          <label htmlFor="title" className={styles.formLabel}>
-            名目(必須):
-          </label>
+          
           <input
             id="title"
             type="text"
@@ -66,9 +64,7 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           <label htmlFor="title" className={styles.formLabel}>
             収支(必須):
           </label>
-          <label htmlFor="title" className={styles.formLabel}>
-            収支(必須):
-          </label>
+          
           <select
             value={type}
             required
@@ -86,9 +82,7 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           <label htmlFor="amount" className={styles.formLabel}>
             金額(必須):
           </label>
-          <label htmlFor="amount" className={styles.formLabel}>
-            金額(必須):
-          </label>
+          
           <input
             id="amount"
             type="number"
@@ -102,9 +96,7 @@ const AccountingForm = ({ book }: { book: string | undefined }) => {
           <label htmlFor="description" className={styles.formLabel}>
             説明(任意):
           </label>
-          <label htmlFor="description" className={styles.formLabel}>
-            説明(任意):
-          </label>
+          
           <textarea
             id="description"
             className={styles.description}
