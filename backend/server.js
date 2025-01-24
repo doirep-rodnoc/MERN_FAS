@@ -33,4 +33,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/transactions", transactionsRoute);
 app.use("/api/books", bookRoute);
 
-app.listen(PORT, () => console.log("SERVER READY."));
+// const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`SERVER RUNNING ON PORT ${PORT}`);
+})
